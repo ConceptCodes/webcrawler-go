@@ -37,3 +37,20 @@ func TestFetchPageContentsInvalidURL(t *testing.T) {
 		t.Fatalf("expected error, got nil")
 	}
 }
+
+func TestGrabLinksFromPageContents(t *testing.T) {
+	// Arrange
+	client := fetcher.New(5 * time.Second)
+	url := "https://en.wikipedia.org/wiki/Initial_campaign_of_the_Breton_Civil_War"
+
+	// Act
+	links, err := client.GrabAllLinks(url)
+	if err != nil {
+		t.Fatalf("expected no error, got %v", err)
+	}
+
+	// Assert
+	if len(links) == 0 {
+		t.Fatalf("expected non-empty links, got empty slice")
+	}
+}
